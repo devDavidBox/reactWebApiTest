@@ -23963,9 +23963,17 @@ var _Missing = __webpack_require__(97);
 
 var _Missing2 = _interopRequireDefault(_Missing);
 
-__webpack_require__(233);
+var _ConceptComponent = __webpack_require__(233);
+
+var _ConceptComponent2 = _interopRequireDefault(_ConceptComponent);
+
+__webpack_require__(235);
 
 __webpack_require__(60);
+
+var _Concept = __webpack_require__(236);
+
+var _Concept2 = _interopRequireDefault(_Concept);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23988,7 +23996,8 @@ var Page = function (_React$Component) {
         _this.state = {
             sectionName: 'Home',
             activeAction: 0,
-            activeComponent: _react2.default.createElement(_Home2.default, null)
+            activeComponent: _react2.default.createElement(_Home2.default, null),
+            concepts: []
         };
 
 
@@ -24041,9 +24050,40 @@ var Page = function (_React$Component) {
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
-            var targetUrl = baseUrl + '/api/Test';
+            var _this2 = this;
+
+            var targetUrl = baseUrl + '/api/Concepts';
             fetch(targetUrl).then(function (response) {
-                console.log(response);
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var concept = _step.value;
+
+                        console.log(concept);
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+
+                console.log(_this2.state.sectionName);
+                _this2.setState({ concepts: data });
             });
 
             var section = this.props.location.pathname.replace('/', '');
@@ -24055,6 +24095,13 @@ var Page = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+
+            var concepts = this.state.concepts.map(function (item, i) {
+                _react2.default.createElement(_ConceptComponent2.default, null);
+            });
+
+            console.log(concepts);
+
             return _react2.default.createElement(
                 'div',
                 { className: 'Page' },
@@ -24078,6 +24125,11 @@ var Page = function (_React$Component) {
                         { to: '/BadLink', onClick: this.handleNavAction.bind(this, -1) },
                         'Bad Link'
                     )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    concepts
                 ),
                 this.state.activeComponent
             );
@@ -26489,9 +26541,62 @@ exports.default = About;
 
 /***/ }),
 /* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(234);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ConceptComponent = function ConceptComponent() {
+    return _react2.default.createElement(
+        'div',
+        { className: 'Concept' },
+        'This is a concept'
+    );
+};
+exports.default = ConceptComponent;
+
+/***/ }),
+/* 234 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 236 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Concept = function Concept() {
+    _classCallCheck(this, Concept);
+};
+
+exports.default = Concept;
 
 /***/ })
 /******/ ]);
