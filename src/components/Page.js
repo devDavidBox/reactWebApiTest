@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
 import Missing from './Missing';
+import ConceptComponent from './ConceptComponent';
 import '../styles/Page.scss';
 import 'whatwg-fetch'
+import Concept from '../models/Concept';
 
 const baseUrl = "http://localhost:50757"
  
@@ -19,7 +21,8 @@ class Page extends React.Component {
     state = {
         sectionName: 'Home',
         activeAction: 0,
-        activeComponent: <Home />
+        activeComponent: <Home />,
+        concepts: []
     }; 
  
     handleNavAction(action) {
@@ -58,11 +61,20 @@ class Page extends React.Component {
     };
  
     componentWillMount() {
-        let targetUrl = `${baseUrl}/api/Test`;
+        let targetUrl = `${baseUrl}/api/Concepts`;
         fetch(targetUrl)
-        .then(function(response) {
-            console.log(response)
-        });
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            for (let concept of data) {
+                console.log(concept);
+            }
+
+            console.log(this.state.sectionName);
+            this.setState({concepts: data});
+        })
 
         var section = this.props.location.pathname.replace('/','');
         if(section == ''){ section = 'Home'; }
@@ -70,12 +82,22 @@ class Page extends React.Component {
     };
  
     render() {
+
+        var concepts = this.state.concepts.map((item, i) => {
+          <ConceptComponent />  
+        });
+
+        console.log(concepts);
+
         return(
             <div className="Page">
                 <div>
                      <Link to="/Home" onClick={this.handleNavAction.bind(this,0)}>Home</Link> | 
                      <Link to="/About" onClick={this.handleNavAction.bind(this,1)}>About</Link> |
                      <Link to="/BadLink" onClick={this.handleNavAction.bind(this,-1)}>Bad Link</Link>
+                </div>
+                <div>
+                    {concepts}
                 </div>
                 {this.state.activeComponent}                
             </div>
