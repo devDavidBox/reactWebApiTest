@@ -90,17 +90,17 @@ class Page extends React.Component {
         console.log(concepts);
 
         return(
-            <div className="Page">
-                <div>
-                     <Link to="/Home" onClick={this.handleNavAction.bind(this,0)}>Home</Link> | 
-                     <Link to="/About" onClick={this.handleNavAction.bind(this,1)}>About</Link> |
-                     <Link to="/BadLink" onClick={this.handleNavAction.bind(this,-1)}>Bad Link</Link>
+
+            <div class="container">
+                <div className="Page">
+                    <div>
+                        <Link to="/Home" onClick={this.handleNavAction.bind(this,0)}>Home</Link> | 
+                        <Link to="/About" onClick={this.handleNavAction.bind(this,1)}>About</Link>
+                    </div>
+                    {this.state.activeComponent}                
                 </div>
-                <div>
-                    {concepts}
-                </div>
-                {this.state.activeComponent}                
             </div>
+
         );
     };
 };
